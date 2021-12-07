@@ -15,8 +15,6 @@ struct list_node
 
 
 //iterator base class
-//provides control over tree via simple operations like (iterator_object)++, (iterator_object)-- or *(iterator_object)
-//use one of child classes to create an instance and this class to hold data and iterate throw the tree
 class base_iterator
 {
 protected:
@@ -30,7 +28,6 @@ protected:
 
 protected:
 	void add(node* _data);	//this method creates instance in the integrated list
-	//there is no method to remove single node because iterations' order must be rebuilt every time when tree changes either way
 	void clear();	//clears orders' list. it's used in move constructor and operator
 
 protected:
@@ -44,8 +41,7 @@ public:
 	void operator=(base_iterator&& _other);	//move operator provides ability to re-use old objects without need to create new ones
 	~base_iterator();	//destructor clears iterations' order, but doesn't touch data inside
 
-	//returns flag, which shows if iterator is in the beginning of the tree, end ot neither. can be used in cycles to avoid moving out of bounds
-	//this mistake won't result crash or any error, but can be pain in ass to find :D
+	
 	bool is_first();	
 	bool is_last();		//if iterator is invalid (aka contains no built iterations' order) both (last) and (first) flags are set to true
 
@@ -54,10 +50,6 @@ public:
 	void operator++();
 	void operator--();
 };
-
-
-
-//these are child classes of the base iterator class. these can't be used to create independent objects, but can be used to initialize base iterator class
 
 //depth-first traversal
 class dft_iterator : public base_iterator
